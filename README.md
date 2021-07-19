@@ -1,4 +1,4 @@
-# AI at the Edge Testing Framework and summary
+# DeepEdgeBench Testing Framework and summary
 
 Python framework for testing Tensorflow imagenet image classification models trained on the [ImageNet dataset](http://image-net.org/) and object detection models trained on the [COCO dataset](https://cocodataset.org/#home) on various platforms including:
  - RKNN-Toolkit
@@ -6,7 +6,7 @@ Python framework for testing Tensorflow imagenet image classification models tra
  - Tensorflow Lite (with TPU support)
  - TensorRT for ONNX models
 
-Model can be found on the [Tensorflow 2 Detection Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md) or [Tensorflow Model Garden](https://github.com/tensorflow/models)
+Models can be found on the [Tensorflow 2 Detection Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md) or [Tensorflow Model Garden](https://github.com/tensorflow/models)
 
 To port a model to one of the mentioned platforms, following conversions are possible:
  - tensorflow 1 frozen graph -> rknn
