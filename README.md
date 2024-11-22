@@ -52,33 +52,33 @@ Examples are based on a configuration with tflite_runtime, rknn-toolkit and tens
 ### convert.py
 #### Tensorflow 1 saved model to RKNN
 RKNN-Toolkit only supports frozen graphs. Input size as well as input and output node names must be provided as arguments
-```
-$ python3.6 convert.py tf_rknn -d 128 -in FeatureExtractor/MobilenetV2/MobilenetV2/input -on concat,concat_1 models/mobilenet_v1/model.pb
+```sh
+$ python convert.py tf_rknn -d 128 -in FeatureExtractor/MobilenetV2/MobilenetV2/input -on concat,concat_1 models/mobilenet_v1/model.pb
 ...
 ```
 
 #### Tensorflow Lite to RKNN
-```
-$ python3.6 convert.py tflite_rknn -d 128 models/mobilenet_v1/model.tflite
+```sh
+$ python convert.py tflite_rknn -d 128 models/mobilenet_v1/model.tflite
 ...
 ```
 
 #### Tensorflow 2 saved model to Tensorflow Lite
 Before converting models from the detection zoo to Tensorflow Lite, we have to follow step 1 from [this guide](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/running_on_mobile_tf2.md).
 
-```
+```sh
 $ python convert.py tf_tflite models/ssd_mobilenet_v2_320x320_coco17_tpu-8_lite/saved_model
 ...
 ```
 With quantization:
-```
+```sh
 $ python convert.py tf_tflite -q datasets/stuff_train2017.json -d 320 models/ssd_mobilenet_v2_320x320_coco17_tpu-8_lite/saved_model
 ...
 ```
 Use [this guide](https://coral.ai/docs/edgetpu/compiler/#system-requirements) Tensorflow Lite model to use operations on Edge TPU or [this guide](https://github.com/tomassams/docker-edgetpu-compiler) for a docker based converter.
 
 #### Tensorflow 1 frozen graph to Tensorflow Lite (not included)
-```
+```sh
  $ tflite_convert --graph_def_file=model.pb \
 --output_file=model.tflite \
 --output_format=TFLITE \
@@ -92,7 +92,7 @@ Use [this guide](https://coral.ai/docs/edgetpu/compiler/#system-requirements) Te
 
 #### Tensorflow 1 hub & saved model optimization with TF-TRT
 Optimizing a Tensorflow 1 hub and saved model with TensorRT:
-```
+```sh
 $ python convert.py tf_tensorrt -d 320 -p int8 models/mobilenet_v1/saved_model
 ...
 ```
@@ -100,14 +100,14 @@ Input dimensions (-d) must be specified in order to build the TRT engines, preci
 
 #### Tensorflow 1 & 2 saved model to ONNX (not included)
 To run a model on the TensorRT engine, the model must be converted to ONNX format. With [tf2onnx](https://github.com/onnx/tensorflow-onnx) tool:
-```
+```sh
 $ python -m tf2onnx.convert --saved-model models/mobilenet_v1/saved_model --output model.onnx --opset 11 --inputs MobilenetV1/Predictions/Reshape_1:0[1,128,128,3]
 ...
 ```
 
 ### test.py
 Inference 10 images using the same model in different formats:
-```
+```sh
 $ python test.py tensorflow models/ssd_mobilenet_v2_320x320_coco17_tpu-8/saved_model datasets/instances_val2017.json -n 10 # Tensorflow
 ...
 $ python3.6 test.py tflite models/ssd_mobilenet_v2_320x320_coco17_tpu-8/model.tflite datasets/instances_val2017.json -n 10 -t fp32 -d 300 # Tensorflow Lite
@@ -122,7 +122,7 @@ Also -d or --input\_dims must be provided when the input is fixed to a specific 
 
 
 Compatibility with Tensorflow 1 saved models:
-```
+```sh
 $ python test.py tensorflow_1 models/mobilenet_v1/saved_model datasets/instances_val2017.json -f data_inf.txt -n 1
 ...
 ```
@@ -130,7 +130,7 @@ For models with tags != 'serving' or signature != 'serving_default', these can b
 
 
 Inference one image 10 times and save timestamps to file (repetition may be useful for accuracy when estimating power consumption):
-```
+```sh
 $ python test.py tensorflow models/ssd_mobilenet_v2_320x320_coco17_tpu-8/saved_model -f data_inf.txt -n 1 -r 10
 ...
 $ cat data_inf.txt
@@ -145,7 +145,7 @@ label_data
 ```
 
 Inference 10 images and save annotated output to './images/' (with output example):
-```
+```sh
 $ python3.6 test.py tflite models/ssd_mobilenet_v2_fpnlite_320x320_coco17_tpu-8_lite/model.tflite datasets/instances_val2017.json -n 10 -o -t fp32 -d 320
 loading annotations into memory...
 Done (t=0.39s)
@@ -191,13 +191,13 @@ $
 The python library for the HM310P is also separately available [here](https://github.com/stephanballer/pyhm310p)
 
 Show live plot and save data with timestamps to file:
-```
+```sh
 $ python serial_reader.py monitor /dev/ttyUSB0 -l -f data_pow.txt
 ```
 ![](example_images/example_pow.png)
 
 Plot power measurement and inference data:
-```
+```sh
 $ python serial_reader.py plot data_pow.txt data_inf.txt
 ```
 ![](example_images/example_plot.png)
