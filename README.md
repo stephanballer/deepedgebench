@@ -48,7 +48,7 @@ Testing (test.py):
 
 
 ## Examples
-Examples are based on a configuration with tflite_runtime, rknn-toolkit and tensorflow 1.11 installed in Python3.6 and tensorflow 2.4 and tensorflow_hub installed in Python3.9 (default Python).
+Examples are based on a configuration with tflite_runtime, rknn-toolkit and tensorflow 1.11 and tensorflow version 2.4 and tensorflow_hub.
 ### convert.py
 #### Tensorflow 1 saved model to RKNN
 RKNN-Toolkit only supports frozen graphs. Input size as well as input and output node names must be provided as arguments
